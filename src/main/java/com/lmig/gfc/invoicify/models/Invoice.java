@@ -1,5 +1,6 @@
 package com.lmig.gfc.invoicify.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -26,6 +27,10 @@ public class Invoice {
 	private String invoiceNumber;
 	@OneToMany(mappedBy="invoice", cascade=CascadeType.ALL)
 	List<InvoiceLineItem> invoices;
+	
+	public Invoice() {
+		invoices = new ArrayList<InvoiceLineItem>();
+	}
 
 
 	public Long getId() {

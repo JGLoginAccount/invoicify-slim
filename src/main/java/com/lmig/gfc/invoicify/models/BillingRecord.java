@@ -15,7 +15,7 @@ public abstract class BillingRecord {
 	private Long id;
 
 	private String Description;
-
+	@ManyToOne
 	private User createdBy;
 
 	@OneToOne(mappedBy = "billingRecord")

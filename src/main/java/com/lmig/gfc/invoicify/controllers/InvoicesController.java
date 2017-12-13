@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lmig.gfc.invoicify.models.BillingRecord;
-import com.lmig.gfc.invoicify.models.Company;
 import com.lmig.gfc.invoicify.models.Invoice;
 import com.lmig.gfc.invoicify.models.InvoiceLineItem;
 import com.lmig.gfc.invoicify.models.User;
@@ -29,11 +28,9 @@ public class InvoicesController {
 	private BillingRecordsRepository billingRecordRepository;
 
 	public InvoicesController(InvoiceRepository invoiceRepository, CompanyRepository companyRepository,BillingRecordsRepository billingRecordRepository) {
-
 		this.invoiceRepository = invoiceRepository;
 		this.companyRepository = companyRepository;
 		this.billingRecordRepository = billingRecordRepository;
-
 	}
 
 	@GetMapping("")
@@ -57,16 +54,9 @@ public class InvoicesController {
 	@GetMapping("/clients/{clientId}")
 	public ModelAndView createInvoice(@PathVariable Long clientId) {
 		ModelAndView mv = new ModelAndView("invoices/billing-records-list");
-
-		// Get all the billing records for the specified client that have no associated
-		// invoice line item and add them with the key "records"
 		
-		
-		
-		List<BillingRecord> records=billingRecordRepository.findByClientId(clientId);
-		
+		List<BillingRecord> records=billingRecordRepository.findByClientIdAndLineItem(clientId,null);
 		mv.addObject("records", records);
-		
 		mv.addObject("clientId", clientId);
 
 		return mv;
@@ -78,12 +68,12 @@ public class InvoicesController {
 		User user=(User) auth.getPrincipal();
 		ArrayList<BillingRecord> newRecords=new ArrayList<BillingRecord>();
 		
-		for (int i=0;i<recordIds.length;i++) {
-			newRecords.add((BillingRecord) billingRecordRepository.findByClientId(recordIds[i]));	
+		for (int i=0;i<recordIds.length;i=i+1) {
+			newRecords.add(billingRecordRepository.findOne(recordIds[i]));	
 		}
 		List<InvoiceLineItem> invoiceLineItems=new ArrayList<InvoiceLineItem>();
 		
-		for (int i=0;i<newRecords.size();i++) {
+		for (int i=0;i<newRecords.size();i=i+1) {
 			InvoiceLineItem ili=new InvoiceLineItem();
 			ili.setBillingRecord(newRecords.get(i));
 			invoice.getInvoices().add(ili);
