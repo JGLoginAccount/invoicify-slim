@@ -21,6 +21,18 @@ public class InvoiceLineItem {
 	@ManyToOne
 	private Invoice invoice;
 	
+	public InvoiceLineItem() {}
+	
+	public InvoiceLineItem(BillingRecord billingRecord,User createdBy, Invoice invoice) {
+		
+		this.billingRecord=billingRecord;
+		this.createdBy=createdBy;
+		this.invoice=invoice;
+		
+		
+		
+	}
+	
 	public Long getId() {
 		return id;
 	}

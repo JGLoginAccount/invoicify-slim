@@ -18,6 +18,12 @@ public class Company {
 	@OneToMany(mappedBy="company")
 	private List<Invoice> invoices;
 	
+	public Company() {}
+	public Company(String name, List<Invoice> invoices) {
+		this.name=name;
+		this.invoices=invoices;
+	}
+	
 	public Long getId() {
 		return id;
 	}

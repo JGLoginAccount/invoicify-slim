@@ -28,6 +28,15 @@ public class Invoice {
 	@OneToMany(mappedBy="invoice", cascade=CascadeType.ALL)
 	List<InvoiceLineItem> invoices;
 	
+	public Invoice(Company company,  User createdBy,String invoiceNumber,List<InvoiceLineItem> invoices) {
+		this.company=company;
+		this.createdBy=createdBy;
+		this.invoiceNumber=invoiceNumber;
+		this.invoices=invoices;
+		
+		
+	}
+	
 	public Invoice() {
 		invoices = new ArrayList<InvoiceLineItem>();
 	}

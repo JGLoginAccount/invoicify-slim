@@ -14,7 +14,7 @@ public abstract class BillingRecord {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	private String Description;
+	private String description;
 	@ManyToOne
 	private User createdBy;
 
@@ -24,6 +24,16 @@ public abstract class BillingRecord {
 	@ManyToOne
 	private Company client;
 
+	public BillingRecord() {
+		
+	}
+	
+	public BillingRecord (String description, User createdBy, InvoiceLineItem lineItem) {
+		this.description=description;
+		this.createdBy=createdBy;
+		this.lineItem=lineItem;
+	}
+	
 	public abstract double getTotal();
 
 	public Long getId() {
@@ -35,11 +45,11 @@ public abstract class BillingRecord {
 	}
 
 	public String getDescription() {
-		return Description;
+		return description;
 	}
 
 	public void setDescription(String description) {
-		Description = description;
+		this.description = description;
 	}
 
 	public User getCreatedBy() {
