@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public abstract class BillingRecord {
 
@@ -15,13 +17,16 @@ public abstract class BillingRecord {
 	private Long id;
 
 	private String description;
+	
+
 	@ManyToOne
 	private User createdBy;
-
+ 
 	@OneToOne(mappedBy = "billingRecord")
 	private InvoiceLineItem lineItem;
 
 	@ManyToOne
+	
 	private Company client;
 
 	public BillingRecord() {

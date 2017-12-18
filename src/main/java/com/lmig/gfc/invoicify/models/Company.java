@@ -1,4 +1,4 @@
-package com.lmig.gfc.invoicify.models;
+ package com.lmig.gfc.invoicify.models;
 
 import java.util.List;
 
@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Company {
 
@@ -16,6 +18,7 @@ public class Company {
 	private Long id;
 	private String name;
 	@OneToMany(mappedBy="company")
+	@JsonIgnore
 	private List<Invoice> invoices;
 	
 	public Company() {}

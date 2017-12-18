@@ -68,6 +68,8 @@ public class InvoicesController {
 		User user=(User) auth.getPrincipal();
 		ArrayList<BillingRecord> newRecords=new ArrayList<BillingRecord>();
 		
+		if (recordIds!=null) {
+		
 		for (int i=0;i<recordIds.length;i=i+1) {
 			newRecords.add(billingRecordRepository.findOne(recordIds[i]));	
 		}
@@ -86,6 +88,7 @@ public class InvoicesController {
 		invoice.setCreatedBy(user);
 		invoice.setCompany(companyRepository.findOne(clientId));
 		invoiceRepository.save(invoice);
+		}
 		
 		return "redirect:/invoices";
 	}

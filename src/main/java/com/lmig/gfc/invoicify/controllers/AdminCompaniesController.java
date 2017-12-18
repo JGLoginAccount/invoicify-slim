@@ -16,7 +16,7 @@ public class AdminCompaniesController {
 	private CompanyRepository companyRepository;
 	
 	public AdminCompaniesController (CompanyRepository companyRepository) {
-		
+		  
 		this.companyRepository=companyRepository;
 		
 	}
@@ -24,15 +24,14 @@ public class AdminCompaniesController {
 	@GetMapping("")
 	public ModelAndView showDefault() {
 		ModelAndView mv = new ModelAndView("admin/companies/default");
+		mv.addObject("companies",companyRepository.findAll());
 		return mv;
 	}
 	
 	@PostMapping("")
 	public ModelAndView createCompany(Company company) {
 		ModelAndView mv = new ModelAndView("redirect:/admin/companies");
-		
 		companyRepository.save(company);
-		
 		return mv;
 	}
 	
